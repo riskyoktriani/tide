@@ -1,0 +1,108 @@
+
+<h3>Purpose</h3>
+<p>This is a web tool to rapidly assess genome editing by CRISPR-Cas9 of a target locus determined by a guide RNA (sgRNA). Based on the quantitative sequence trace data from two standard capillary sequencing reactions the TIDE software quantifies the editing efficacy and identifies the predominant types of insertions and deletions (indels) in the DNA of a targeted cell pool. See <i>Brinkman et al, ##</i> for a detailed explanation and examples.
+</p> 
+ 
+<img src="sequence.png" class="img.unframed" align="left">
+
+<Br CLEAR="all">
+
+
+<h3>Instructions</h3>
+<h4>1. Upload Data:</h4>
+
+<p> Enter a 20nt ('5-'3) DNA character string representing the used sgRNA guide sequence immediately upstream of the PAM sequence (PAM not included). Numbers and other invalid (non-IUPAC) DNA characters will be automatically removed. TIDE assumes that a dsDNA break is induced between nucleotides 16 and 17 in this sequence.
+<br>
+Next, upload the chromatogram sequence files of respectively the control sample (e.g. transfected without Cas9 or without the sgRNA) and the test sample (e.g. DNA of pool of cells treated with both Cas9 and the sgRNA).  
+<br>
+
+We advise to sequence a stretch of DNA &#126;700bp enclosing the designed editing site. The projected break site should be located preferably &#126;200bp downstream from the sequencing start site. This region upstream of the break site is used to align the sequencing data of the test sample with that of the control sample.  
+</p>
+
+<p>
+<strong>Currently, ABIF (.ab1) and SCF (.scf) files are supported. </strong> SCF is an open standard and several tools exist to convert other formats to SCF files. 
+</p>
+
+<h4>2. Enter Parameters for Analysis:</h4>
+
+<p>The following parameters have default settings but can be adjusted if necessary in the panel to the left by checking the 'advance settings' box.
+</p>
+
+<h4>Alignment window</h4>
+<p>These settings determine the window in which the control and test sequences are aligned to determine any offset between the two reads. There is usually no need to deviate from the default settings, except when long repetitive sequences are present.
+
+<p>
+<strong>left boundary:</strong> 
+By default this is set to 100, because base-calling at the start of a Sanger sequence read is often of poor quality. 
+<br>
+<strong>right boundary:</strong> 
+This is automatically set at break site - 10bp
+</p>
+
+</p>
+
+<h4>Decomposition window</h4>
+<p>These settings determine the sequence segment used for decomposition. The default setting is the largest window possible for the uploaded sequences:
+
+<p>
+<strong>left boundary:</strong>
+max indel size + 5bp downstream of the break site. <br>
+
+<strong>right boundary:</strong>
+max indel size + 5bp before the end of the shortest sequence read.
+</p>
+
+The decomposition window can be adjusted if part of the sequence read is of low quality or contains repetitive sequences.
+</p>
+  
+<h4>Indel size range</h4>
+<p>Set the maximum size of deletions and insertions to be modeled. The default value is 10.</p>
+
+<h4>P-value threshold</h4>
+<p>Significance cutoff. Any value between 0 and 1 is accepted. Default is p<0.001</p> 
+
+<h4>3. Results:</h4>
+<p>Once the data are uploaded and parameters are set, submit the data by clicking on the "update view" button and the plots will appear in the three tabs: "Quality", "Decomposition, "+1 insertion". If the settings are incorrect or too stringent, warnings or remarks will be dispayed in the "Quality and/or Decomposition" tab.
+</p>  
+
+<p>
+<strong> Quality measures</strong>: Results depend on the quality of the sequence reads. As a rule of thumb, we recommend to aim for an average aberrant sequence signal strength before the breaksite <10% (both control and test sample), and R<SUP>2</SUP>>0.9 for the decomposition result. Sequencing of the opposite strand is recommended to confirm the results. </strong>
+</p>
+
+
+<h3>License, terms of use, privacy</h3>
+<p>This webtool and the associated R code are open source software under <a href="http://www.r-project.org/Licenses/GPL-3"> GNU General Public License version 3</a>. If you use this software for data analysis in a publication, please cite (Brinkman et al, ###). Your uploaded data are only used for the duration of the analysis session and are not stored or used for any other purpose. </p>
+
+<h3>Code</h3>
+<p>The source code and R code of TIDE version 0.1 are available at <a href="research.nki.nl/vansteensellab/tide.html"> Bas van Steensel lab website</a>.
+</p>
+
+<h3>Contact</h3>
+<p>This web tool was developed by Eva Brinkman, Tao Chen and Bas van Steensel. For more information and to report bugs, please contact <a href="http://research.nki.nl/vansteensellab/contact.htm"> Bas van Steensel</a></p>
+
+<h3>Acknowledgements</h3>
+<p><strong>R</strong></p>
+  <p>R Core Team (2013). R: A language and environment for statistical computing. R Foundation for
+  Statistical Computing, Vienna, Austria. <a href="http://www.R-project.org/"> www.R-project.org </a>. R version 3.1.1.</p>
+
+<p><strong>Biostrings</strong></p>
+  <p>H. Pages, P. Aboyoun, R. Gentleman and S. DebRoy. Biostrings: String objects representing
+  biological sequences, and matching algorithms. R package version 2.32.1.</p>
+
+<p><strong>sangerseqR</strong></p>
+  <p> J.T. Hill and B. Demarest (2014). sangerseqR: Tools for Sanger Sequencing Data in R.  R package version 1.0.0.</p>
+
+<p><strong>nnls</strong></p>
+  <p> K. M. Mullen and I. H. M. van Stokkum. The Lawson-Hanson algorithm for non-negative least squares (NNLS). R package version 1.4.</p>
+
+<p><strong>shiny</strong></p>
+  <p>RStudio and Inc. (2013). shiny: Web Application Framework for R. R package version 0.10.1. 
+  <a href="http://CRAN.R-project.org/package=shiny"> http://CRAN.R-project.org/package=shiny</a>
+</p>
+
+<p><strong>Poly Peak Parser</strong></p>
+<p>Some code was adapted from 
+<a href="http://spark.rstudio.com/yostlab/PolyPeakParser/"> http://spark.rstudio.com/yostlab/PolyPeakParser/</a> </p>
+
+<br><br>
+
